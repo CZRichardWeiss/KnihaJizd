@@ -12,6 +12,7 @@ Databáze
 		tankovano
 		id_tankovani
 		soukroma_jizda
+		soucasna
 	tankovani
 		id
 		plna_nadrz
@@ -22,14 +23,22 @@ Rozvržení
 	Aktivita Auto vybráno
 		Tlaèítko Výbìr auta
 
-		Záložka Probíhající jízda
+		Záložka Probíhající jízda s mìnícím názvem
+			Fragment Nová jízda
+				Momentální èas
+				Tlaèítko zapoèít jízdu
+					Fragment Probíhající jízda
+						Momentální èas
+						Tlaèítko zrušit jízdu
+						Tlaèítko ukonèit jízdu
+							-> Fragment jízdy s upravitelnými údaji
 		Záložka Historie jízd
-			(id)
-			Šipka
-			do_cas
-			do_misto
-			
-			Dialog jízdy
+			Fragment seznamu
+				(id)
+				Šipka
+				do_cas
+				do_misto
+			Fragment jízdy s upravitelnými údaji
 				(id)
 				jmeno_auta
 				Od
