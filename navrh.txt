@@ -1,0 +1,56 @@
+Databáze
+	auta
+		id
+		jmeno_auta
+	jízdy
+		id
+		id_auta
+		od_misto
+		do_misto
+		od_cas
+		do_cas
+		tankovano
+		id_tankovani
+		soukroma_jizda
+	tankovani
+		id
+		plna_nadrz
+		objem
+
+Rozvržení
+	Aktivita Výbìr auta
+	Aktivita Auto vybráno
+		Tlaèítko Výbìr auta
+
+		Záložka Probíhající jízda
+		Záložka Historie jízd
+			(id)
+			Šipka
+			do_cas
+			do_misto
+			
+			Dialog jízdy
+				(id)
+				jmeno_auta
+				Od
+					od_misto
+					od_cas
+						Dialog èasu
+				Do
+					do_misto
+					do_cas
+						Dialog èasu
+				Checkbox Tankováno
+					plna_nadrz
+					objem
+				Tlaèítko Uložit zmìny
+				Tlaèítko Smazat jízdu
+					Dialog potvrzení
+				Tlaèítko Zrušit
+		Záložka Pomocné fotky
+			Seznam fotek
+				Zvìtšit
+					Zpìt
+				Smazat
+					Dialog potvrzení
+			
