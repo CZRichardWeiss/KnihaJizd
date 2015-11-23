@@ -93,7 +93,7 @@ public class DetailJizdyFragment extends DialogFragment
     {
         SQLiteDatabase rdb = h.getReadableDatabase();
 
-        Cursor c = rdb.query("jizdy", new String[]{"od_misto", "do_misto", "do_cas", "od_cas", "soukroma", "tankovano", "plna_nadrz", "objem"}, "_id = ?", new String[]{String.valueOf(id)}, null, null, null);
+        Cursor c = rdb.query("jizdy", new String[]{"od_misto", "do_misto", "do_cas", "od_cas", "soukroma", "tankovano", "plna_nadrz", "litru"}, "_id = ?", new String[]{String.valueOf(id)}, null, null, null);
         c.moveToPosition(0);
         et_od_misto.setText(c.getString(c.getColumnIndex("od_misto")));
         et_do_misto.setText(c.getString(c.getColumnIndex("do_misto")));
@@ -104,7 +104,7 @@ public class DetailJizdyFragment extends DialogFragment
         if (cb_tankovano.isChecked())
         {
             cb_plna_nadrz.setChecked(c.getInt(c.getColumnIndex("plna_nadrz")) == 1);
-            et_litru.setText(c.getInt(c.getColumnIndex("objem")));
+            et_litru.setText(c.getInt(c.getColumnIndex("litru")));
         }
     }
 
@@ -204,16 +204,18 @@ public class DetailJizdyFragment extends DialogFragment
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
             id_jizdy = getArguments().getInt("id_jizdy");
-            h = new Helper(getContext());
+            h = new Helper(getActivity());
+
+            Log.d("jméno", h.getDatabaseName());
 
             SQLiteDatabase rdb = h.getReadableDatabase();
 
-            Cursor c = rdb.query("jizdy", new String[]{"od_cas"}, null, null, null, null, "_id", String.valueOf(id_jizdy));
+            Cursor c = rdb.query("jizdy", new String[]{"od_cas", "do_cas"}, "_id = "+id_jizdy, new String[]{}, null, null, null, null);
             c.moveToPosition(0);
-            od_cas = c.getInt(0);
-            c = rdb.query("jizdy", new String[]{"do_cas"}, null, null, null, null, "_id", String.valueOf(id_jizdy));
-            c.moveToPosition(0);
-            od_cas = c.getInt(0);
+            od_cas = c.getInt(c.getColumnIndex("od_cas"));
+            do_cas = c.getInt(c.getColumnIndex("do_cas"));
+
+            rdb.close();
         }
     }
 

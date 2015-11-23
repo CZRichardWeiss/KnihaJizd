@@ -47,6 +47,7 @@ public class VyberAutaActivity extends AppCompatActivity {
                 startActivity(i);
             }
         });
+
         wdb.close();
         rdb.close();
     }

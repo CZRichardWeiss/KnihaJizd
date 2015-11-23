@@ -98,7 +98,7 @@ public class SpravaAutaActivity extends FragmentActivity implements
 
         int id_jizdy = 0;
 
-        Cursor c = rdb.query("auta", new String[]{"_id"}, null, null, null, null, "_id", "1");
+        Cursor c = rdb.query("jizdy", new String[]{"_id"}, "_id = ?", new String[]{String.valueOf(id_auta)}, null, null, "_id", "1");
         c.moveToPosition(0);
         id_jizdy = c.getInt(0);
 
@@ -111,9 +111,14 @@ public class SpravaAutaActivity extends FragmentActivity implements
         cv.put("do_cas", (int)(System.currentTimeMillis() / 1000L));
         cv.put("tankovano", 0);
         cv.put("plna_nadrz", 0);
-        cv.put("objem", 0);
+        cv.put("litru", 0);
         cv.put("soukroma", 0);
         wdb.insert("jizdy", null, cv);
+
+        wdb.close();
+        rdb.close();
+
+        Log.d("jméno", h.getDatabaseName());
 
         DetailJizdyFragment df = new DetailJizdyFragment();
         Bundle args = new Bundle();
