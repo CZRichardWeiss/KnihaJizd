@@ -1,20 +1,20 @@
+Doøešit
+	TextClock
+	roztáhnutí detailu jízdy
+
 Databáze
 	auta
-		id
-		jmeno_auta
+		_id
+		jmeno
 	jízdy
-		id
+		_id
 		id_auta
 		od_misto
 		do_misto
 		od_cas
 		do_cas
+		soukroma
 		tankovano
-		id_tankovani
-		soukroma_jizda
-		soucasna
-	tankovani
-		id
 		plna_nadrz
 		objem
 

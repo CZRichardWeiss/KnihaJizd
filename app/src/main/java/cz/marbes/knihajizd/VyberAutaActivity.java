@@ -24,6 +24,7 @@ public class VyberAutaActivity extends AppCompatActivity {
         SQLiteDatabase rdb = h.getReadableDatabase();
         SQLiteDatabase wdb = h.getWritableDatabase();
         h.onCreate(wdb);
+
         ContentValues cv = new ContentValues();
         cv.put("_id", 1);
         cv.put("jmeno", "auto1");
