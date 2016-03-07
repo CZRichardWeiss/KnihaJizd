@@ -25,49 +25,29 @@ public class SpravaAutaActivity extends FragmentActivity implements
         NovaJizdaFragment.OnFragmentInteractionListener,
         DetailJizdyFragment.OnFragmentInteractionListener {
 
-    ViewPager vp;
-    boolean probihaJizda;
-    TabLayout tabLayout;
-    int id_auta;
-    int od_cas;
+    private ViewPager vp;
+    private boolean probihaJizda;
+    private TabLayout tabLayout;
+    private int id_auta;
+    private int od_cas;
+    private int id_jizdy;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        probihaJizda = false;
         setContentView(R.layout.activity_sprava_auta);
+
         vp = (ViewPager) findViewById(R.id.vpPager);
-        vp.setAdapter(new MyPagerAdapter(getSupportFragmentManager(), probihaJizda));
         tabLayout = (TabLayout) findViewById(R.id.tabLayout);
-        tabLayout.setupWithViewPager(vp);
+
+        setProbihaJizda(false);
         id_auta = getIntent().getIntExtra("id_auta", 0);
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_sprava_auta, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
     }
 
     public void prepniNaVyberAuta(View v)
     {
         Intent i = new Intent(this, VyberAutaActivity.class);
+        i.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
         startActivity(i);
     }
 
@@ -75,7 +55,7 @@ public class SpravaAutaActivity extends FragmentActivity implements
     {
         probihaJizda = b;
         MyPagerAdapter mpa = new MyPagerAdapter(getSupportFragmentManager(), b);
-        vp.setAdapter(mpa);
+        vp.setAdapter(new MyPagerAdapter(getSupportFragmentManager(), b));
         tabLayout.setupWithViewPager(vp);
         mpa.getItem(0);
         mpa.notifyDataSetChanged();
@@ -96,11 +76,11 @@ public class SpravaAutaActivity extends FragmentActivity implements
         SQLiteDatabase rdb = h.getReadableDatabase();
         SQLiteDatabase wdb = h.getWritableDatabase();
 
-        int id_jizdy = 0;
+        id_jizdy = 0;
 
         Cursor c = rdb.query("jizdy", new String[]{"_id"}, "_id = ?", new String[]{String.valueOf(id_auta)}, null, null, "_id", "1");
         c.moveToPosition(0);
-        id_jizdy = c.getInt(0);
+        id_jizdy = c.getInt(c.getColumnIndex("_id"));
 
         ContentValues cv = new ContentValues();
         cv.put("_id", id_jizdy);
@@ -117,8 +97,6 @@ public class SpravaAutaActivity extends FragmentActivity implements
 
         wdb.close();
         rdb.close();
-
-        Log.d("jméno", h.getDatabaseName());
 
         DetailJizdyFragment df = new DetailJizdyFragment();
         Bundle args = new Bundle();
