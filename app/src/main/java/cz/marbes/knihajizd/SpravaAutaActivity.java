@@ -3,6 +3,7 @@ package cz.marbes.knihajizd;
 import android.content.ContentValues;
 import android.content.Intent;
 import android.database.Cursor;
+import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
 import android.os.Bundle;
@@ -76,14 +77,7 @@ public class SpravaAutaActivity extends FragmentActivity implements
         SQLiteDatabase rdb = h.getReadableDatabase();
         SQLiteDatabase wdb = h.getWritableDatabase();
 
-        id_jizdy = 0;
-
-        Cursor c = rdb.query("jizdy", new String[]{"_id"}, "_id = ?", new String[]{String.valueOf(id_auta)}, null, null, "_id", "1");
-        c.moveToPosition(0);
-        id_jizdy = c.getInt(c.getColumnIndex("_id"));
-
         ContentValues cv = new ContentValues();
-        cv.put("_id", id_jizdy);
         cv.put("id_auta", id_auta);
         cv.put("od_misto", "");
         cv.put("do_misto", "");
@@ -93,7 +87,15 @@ public class SpravaAutaActivity extends FragmentActivity implements
         cv.put("plna_nadrz", 0);
         cv.put("litru", 0);
         cv.put("soukroma", 0);
-        wdb.insert("jizdy", null, cv);
+        try {
+            id_jizdy = (int) wdb.insertOrThrow("jizdy", null, cv);
+        }
+        catch (SQLException e)
+        {
+            Log.d("Výjimka", e.getMessage());
+        }
+
+        Log.d("idecko", String.valueOf(id_jizdy));
 
         wdb.close();
         rdb.close();

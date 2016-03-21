@@ -20,7 +20,7 @@ public class Helper extends SQLiteOpenHelper {
         db.execSQL("drop table if exists jizdy");
         db.execSQL("drop table if exists tankovani");
         db.execSQL("create table if not exists auta (_id int, jmeno text)");
-        db.execSQL("create table if not exists jizdy (_id int, id_auta int, od_misto text, do_misto text, od_cas int, do_cas int, tankovano int1, int1 plna_nadrz, int litru, soukroma int1)");
+        db.execSQL("create table if not exists jizdy (_id int, id_auta int, od_misto text, do_misto text, od_cas int, do_cas int, tankovano int1, plna_nadrz int1, litru int1, soukroma int1)");
     }
 
     @Override

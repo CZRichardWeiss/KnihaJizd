@@ -23,7 +23,7 @@ Rozvržení
 	Aktivita Auto vybráno
 		Tlaèítko Výbìr auta
 
-		Záložka Probíhající jízda s mìnícím názvem
+		Záložka Probíhající jízda (s mìnícím názvem)
 			Fragment Nová jízda
 				Momentální èas
 				Tlaèítko zapoèít jízdu

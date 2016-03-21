@@ -19,6 +19,7 @@ import android.widget.EditText;
 import android.widget.TableRow;
 
 import java.text.SimpleDateFormat;
+import java.util.Arrays;
 import java.util.Date;
 
 
@@ -93,7 +94,9 @@ public class DetailJizdyFragment extends DialogFragment
     {
         SQLiteDatabase rdb = h.getReadableDatabase();
 
-        Cursor c = rdb.query("jizdy", new String[]{"od_misto", "do_misto", "do_cas", "od_cas", "soukroma", "tankovano", "plna_nadrz", "litru"}, "_id = ?", new String[]{String.valueOf(id)}, null, null, null);
+        //Cursor c = rdb.query("jizdy", new String[]{"od_misto", "do_misto", "do_cas", "od_cas", "soukroma", "tankovano", "plna_nadrz", "litru"}, "_id = ?", new String[]{String.valueOf(id)}, null, null, null);
+        Cursor c = rdb.query("jizdy", new String[]{"*"}, "_id = ?", new String[]{String.valueOf(id)}, null, null, null);
+        Log.d("sloupce", Arrays.toString(c.getColumnNames()));
         c.moveToPosition(0);
         et_od_misto.setText(c.getString(c.getColumnIndex("od_misto")));
         et_do_misto.setText(c.getString(c.getColumnIndex("do_misto")));
@@ -210,10 +213,13 @@ public class DetailJizdyFragment extends DialogFragment
 
             SQLiteDatabase rdb = h.getReadableDatabase();
 
-            Cursor c = rdb.query("jizdy", new String[]{"od_cas", "do_cas"}, "_id = "+id_jizdy, new String[]{}, null, null, null, null);
+            //Cursor c = rdb.query("jizdy", new String[]{"od_cas", "do_cas"}, "_id = ?", new String[]{String.valueOf(id_jizdy)}, null, null, null, null);
+            Cursor c = rdb.query("jizdy", new String[]{"od_cas", "do_cas"}, null, null, null, null, null, null);
             c.moveToPosition(0);
-            od_cas = c.getInt(c.getColumnIndex("od_cas"));
-            do_cas = c.getInt(c.getColumnIndex("do_cas"));
+            Log.d("tostring", c.toString());
+            Log.d("count", String.valueOf(c.getCount()));
+            Log.d("od", String.valueOf(od_cas = c.getInt(c.getColumnIndex("od_cas"))));
+            Log.d("do", String.valueOf(do_cas = c.getInt(c.getColumnIndex("do_cas"))));
 
             rdb.close();
         }
