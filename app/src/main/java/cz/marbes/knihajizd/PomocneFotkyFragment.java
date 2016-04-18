@@ -17,6 +17,9 @@ import android.view.ViewGroup;
  * Use the {@link PomocneFotkyFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
+
+//Neimplementováno
+
 public class PomocneFotkyFragment extends Fragment {
 
     private OnFragmentInteractionListener mListener;

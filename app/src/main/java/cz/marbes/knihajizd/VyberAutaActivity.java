@@ -20,11 +20,14 @@ public class VyberAutaActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_vyber_auta);
+
+        //Příprava databáze
         Helper h = new Helper(this);
         SQLiteDatabase rdb = h.getReadableDatabase();
         SQLiteDatabase wdb = h.getWritableDatabase();
         h.onCreate(wdb);
 
+        //TODO: odstranit testovací hodnoty:
         ContentValues cv = new ContentValues();
         cv.put("_id", 1);
         cv.put("jmeno", "auto1");
@@ -35,6 +38,7 @@ public class VyberAutaActivity extends AppCompatActivity {
         cv.put("jmeno", "auto2");
         wdb.insert("auta", null, cv);
 
+        //Vygenerovat GUI seznam aut
         Cursor c = rdb.query("auta", new String[]{"_id", "jmeno"}, null, null, null, null, null);
         SimpleCursorAdapter sca = new SimpleCursorAdapter(this, R.layout.seznam_aut, c, new String[]{"_id", "jmeno"}, new int[]{R.id.id_auta, R.id.jmeno_auta});
         ListView lv = (ListView) findViewById(R.id.seznam_aut);

@@ -17,6 +17,9 @@ import android.view.ViewGroup;
  * Use the {@link HistorieJizdFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
+
+//Neimplementováno
+
 public class HistorieJizdFragment extends Fragment {
 
     private int id_auta;

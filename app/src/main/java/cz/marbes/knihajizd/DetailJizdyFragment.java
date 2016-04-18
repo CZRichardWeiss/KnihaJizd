@@ -90,6 +90,7 @@ public class DetailJizdyFragment extends DialogFragment
         radek_litru.setVisibility(b ? View.VISIBLE : View.GONE);
     }
 
+    //Načte hodnoty z databáze do GUI prvků
     public void nacistHodnoty(int id)
     {
         SQLiteDatabase rdb = h.getReadableDatabase();
@@ -119,6 +120,8 @@ public class DetailJizdyFragment extends DialogFragment
         Log.d("id_jizdy", String.valueOf(id_jizdy));
         nacistHodnoty(id_jizdy);
 
+        //Nastaví GUI prvky do proměnných
+
         et_od_misto = (EditText) getView().findViewById(R.id.et_od_misto);
         et_do_misto = (EditText) getView().findViewById(R.id.et_do_misto);
         tl_od_cas = (Button) getView().findViewById(R.id.tl_od_cas);
@@ -142,14 +145,14 @@ public class DetailJizdyFragment extends DialogFragment
         tl_do_cas.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                //Neimplementováno, otevře UpresneniCasuFragment
             }
         });
 
         tl_od_cas.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                //Neimplementováno, otevře UpresneniCasuFragment
             }
         });
 
@@ -182,6 +185,7 @@ public class DetailJizdyFragment extends DialogFragment
             }
         });
 
+        //Akce tlačítka Zrušit
         tl_zrusit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -189,6 +193,7 @@ public class DetailJizdyFragment extends DialogFragment
             }
         });
 
+        //Akce tlačítka Smazat
         tl_smazat.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -213,6 +218,7 @@ public class DetailJizdyFragment extends DialogFragment
 
             SQLiteDatabase rdb = h.getReadableDatabase();
 
+            //Debugging databáze
             //Cursor c = rdb.query("jizdy", new String[]{"od_cas", "do_cas"}, "_id = ?", new String[]{String.valueOf(id_jizdy)}, null, null, null, null);
             Cursor c = rdb.query("jizdy", new String[]{"od_cas", "do_cas"}, null, null, null, null, null, null);
             c.moveToPosition(0);

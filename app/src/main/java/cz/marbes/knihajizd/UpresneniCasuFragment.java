@@ -18,6 +18,9 @@ import android.view.ViewGroup;
  * Use the {@link UpresneniCasuFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
+
+//Neimplementováno
+
 public class UpresneniCasuFragment extends DialogFragment {
 
     // TODO: Rename and change types of parameters

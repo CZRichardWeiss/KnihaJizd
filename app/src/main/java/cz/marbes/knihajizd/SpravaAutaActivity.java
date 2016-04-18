@@ -55,6 +55,7 @@ public class SpravaAutaActivity extends FragmentActivity implements
     public void setProbihaJizda(boolean b)
     {
         probihaJizda = b;
+        //Změň taby
         MyPagerAdapter mpa = new MyPagerAdapter(getSupportFragmentManager(), b);
         vp.setAdapter(new MyPagerAdapter(getSupportFragmentManager(), b));
         tabLayout.setupWithViewPager(vp);
@@ -71,12 +72,15 @@ public class SpravaAutaActivity extends FragmentActivity implements
     public void ukoncitJizdu(View v)
     {
         setProbihaJizda(false);
+        //Vyber druhý tab (historie jízd)
         tabLayout.getTabAt(1).select();
 
+        //Příprava databáze
         Helper h = new Helper(this);
         SQLiteDatabase rdb = h.getReadableDatabase();
         SQLiteDatabase wdb = h.getWritableDatabase();
 
+        //Vložit vložit nový záznam s novou jízdou
         ContentValues cv = new ContentValues();
         cv.put("id_auta", id_auta);
         cv.put("od_misto", "");
@@ -100,6 +104,7 @@ public class SpravaAutaActivity extends FragmentActivity implements
         wdb.close();
         rdb.close();
 
+        //Otevři příslušný detail jízdy
         DetailJizdyFragment df = new DetailJizdyFragment();
         Bundle args = new Bundle();
         args.putInt("id_jizdy", id_jizdy);
@@ -112,6 +117,7 @@ public class SpravaAutaActivity extends FragmentActivity implements
 
     }
 
+    //Spravuje fragmenty
     public static class MyPagerAdapter extends FragmentStatePagerAdapter {
         private boolean probihaJizda;
 
